@@ -10,6 +10,6 @@ Linguagem feita por:
 Baseada na liguagem C.
 A linguagem apresenta estruturas condicionais e laços de repetição, o que permite a utilização da mesma para a criação de diversos tipos de programas.
 
-## Como usar
+## Como Usar
 
 ## Referências
