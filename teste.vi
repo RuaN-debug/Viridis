@@ -1,0 +1,11 @@
+int a
+int b
+
+a = 2
+b = 3
+
+if(a < 3){
+    maduro("TRUE")
+}else{
+    maduro("False")
+}
