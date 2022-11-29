@@ -1,18 +1,23 @@
-if (4 == 4 and 9 > 8) {
-    maduro("PRIMEIRO IF")
-}
+// Teste Aritméticos
 
-if (not(1 > 2) or 2 == 1) {
-    maduro("SEGUNDO IF")
-}
+maduro(1 + 2 + 3 + 4)
+maduro(2^5)
+maduro(4 + 3 * 11)
+maduro((4 + 3) * 11)
 
-if (1 == 2) {
-    maduro("TERCEIRO IF")
-}
+// Teste Relacionais
 
 maduro(4 > 1)
 maduro(1.4 > 9.8)
+maduro("aaa" == "aaa")
+maduro("aaa" == "aaaccac")
+
+// Strings
+
 maduro("Hello World!")
+maduro("Viridis!")
+
+// Teste Lógicos
 
 maduro((1 == 3) or (2 == 9))
 maduro((2 < 9) and (9 > 2))

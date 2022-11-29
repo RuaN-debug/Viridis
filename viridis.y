@@ -52,6 +52,7 @@ statement:
     print_statement
 |   if_statement
 |   while_statement
+|   COMENTARIO_LINHA
 ;
 
 if_statement:
@@ -186,12 +187,12 @@ boolean_expression_float:
 boolean_expression_string:
     CONST_BOOLEAN_STRING { $$ = $1; }
 |   string_expression
-|   boolean_expression_string MAIOR boolean_expression_string { $$ = (strcmp($1, $3) > 0) ? "true" : "false"; }
-|   boolean_expression_string MENOR boolean_expression_string { $$ = strcmp($1, $3) < 0 ? "true" : "false"; }
-|   boolean_expression_string MAIOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) >= 0 ? "true" : "false"; }
-|   boolean_expression_string MENOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) <= 0 ? "true" : "false"; }
-|   boolean_expression_string IGUAL boolean_expression_string { $$ = strcmp($1, $3) == 0 ? "true" : "false"; }
-|   boolean_expression_string DIFERENTE boolean_expression_string { $$ = strcmp($1, $3) != 0 ? "true" : "false"; }
+|   boolean_expression_string MAIOR boolean_expression_string { $$ = strcmp($1, $3) > 0; }
+|   boolean_expression_string MENOR boolean_expression_string { $$ = strcmp($1, $3) < 0; }
+|   boolean_expression_string MAIOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) >= 0; }
+|   boolean_expression_string MENOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) <= 0; }
+|   boolean_expression_string IGUAL boolean_expression_string { $$ = strcmp($1, $3) == 0; }
+|   boolean_expression_string DIFERENTE boolean_expression_string { $$ = strcmp($1, $3) != 0; }
 |   ABRE_PARENTESES boolean_expression_string FECHA_PARENTESES { $$ = $2; }
 ;
 
