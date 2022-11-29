@@ -69,10 +69,7 @@ else_statement:
 ;
 
 while_statement:
-    WHILE head_expression head_statement { while($3){
-            $6;
-        }
-    }
+    WHILE head_expression head_statement
 ;
 
 head_expression:

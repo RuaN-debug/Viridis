@@ -1,0 +1,57 @@
+int op=0
+int aux=1
+int i
+float saldo=1200.00
+float quant
+string conta
+
+while(aux==1){
+    maduro("CAIXA ELETRÔNICO \n")
+    maduro("Seu saldo: R$%f \n", saldo)
+    maduro("Escolha a operação desejada: \n")
+    maduro("        1- Saque\n")
+    maduro("        2- Depósito\n")
+    maduro("        3- Tranferência\n")
+    verde(op)
+    
+    if(op==1){
+        maduro("O quanto deseja sacar? \n")
+        verde(quant)
+        if(quant>saldo){
+            maduro("Você não possui saldo suficiente \n")
+        }
+        else{
+            saldo = saldo - quant
+            maduro("Seu novo saldo: R$ %f \n",saldo)
+        }
+    }
+    else if(op==2){
+        maduro("O quanto deseja depositar? \n")
+        verde(quant)
+        saldo = saldo + quant
+        maduro("Seu novo saldo: R$ %f \n",saldo)
+    }
+    else if(op==3){
+        maduro("Para qual conta deseja transferir? \n")
+        
+        verde(conta)
+        
+        maduro("Digite a quantidade que deseja transferir: \n")
+        verde(quant)
+
+        if(quant>saldo){
+            maduro("Você não possui saldo suficiente \n")
+        }
+        else{
+            saldo = saldo - quant
+            maduro("Seu novo saldo: R$ %f \n",saldo)
+        }
+        
+    }
+    
+    
+    maduro("Deseja continuar? \n")
+    maduro("        1-Sim\n")
+    maduro("        2-Não\n")
+    verde(aux) 
+}

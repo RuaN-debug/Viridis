@@ -1,0 +1,210 @@
+int contV=0
+int contM=0
+int contP=0
+int contA=0
+int op=0
+int aux=0
+
+maduro("* Este é o quizz das princesas *\n")
+maduro("Qual princesa você é?\n")
+
+maduro("\n")
+
+while(aux==0){
+    maduro("PERGUNTA NÚMERO 1: \n")
+    maduro("Escolha uma comida: \n")
+    maduro("        1- Pirulito\n")
+    maduro("        2- Arroz\n")
+    maduro("        3- Milho cozido\n")
+    maduro("        4- Porco no rolete\n")
+    verde(op)
+
+    if(op==1){
+        contV = contV+1 
+        op=0
+        aux=1
+    }
+    elif(op==2){
+        contM = contM+1
+        op=0
+        aux=1
+    }
+    elif(op==3){
+        contP=contP+1
+        op=0
+        aux=1
+    }
+    elif(op==4){
+        contA=contA+1
+        op=0
+        aux=1
+    }
+    else{
+        maduro("Digite um número possível >:(  \n")
+    }
+}
+
+while(aux==1){
+    maduro("PERGUNTA NÚMERO 2: \n")
+    maduro("Escolha um animal: \n")
+    maduro("        1- Furão\n")
+    maduro("        2- Cavalo\n")
+    maduro("        3- Guaxinim\n")
+    maduro("        4- Pombo\n")
+    verde(op)
+    if(op==1){
+        contV = contV+1
+        op=0
+        aux=2
+    }
+    elif(op==2){
+        contM = contM+1
+        op=0
+        aux=2
+    }
+    elif(op==3){
+        contP=contP+1
+        op=0
+        aux=2
+    }
+    elif(op==4){
+        contA=contA+1
+        op=0
+        aux=2
+    }
+    else{
+        maduro("Digite um número possível >:(  \n")
+    }
+}
+
+while(aux==2){
+    maduro("PERGUNTA NÚMERO 3: \n")
+    maduro("Escolha uma cor: \n")
+    maduro("        1- Rosa\n")
+    maduro("        2- Vermelho\n")
+    maduro("        3- Verde\n")
+    maduro("        4- Azul\n")
+    verde(op)
+    if(op==1){
+        contV = contV+1
+        op=0
+        aux=3
+    }
+    elif(op==2){
+        contM = contM+1
+        op=0
+        aux=3
+    }
+    elif(op==3){
+        contP=contP+1
+        op=0
+        aux=3
+    }
+    elif(op==4){
+        contA=contA+1
+        op=0
+        aux=3
+    }
+    else{
+            maduro("Digite um número possível >:(  \n")
+    }
+}
+
+while(aux==3){
+    maduro("PERGUNTA NÚMERO 4: \n")
+    maduro("Escolha um hobbie: \n")
+    maduro("        1- Corrida\n")
+    maduro("        2- Pintar\n")
+    maduro("        3- Nadar\n")
+    maduro("        4- Cantar\n")
+    verde(op)
+    if(op==1){
+        contV = contV+1
+        op=0
+        aux=4
+    }
+    elif(op==2){
+        contM = contM+1
+        op=0
+        aux=4
+    }
+    elif(op==3){
+        contP=contP+1
+        op=0
+        aux=4
+    }
+    elif(op==4){
+        contA=contA+1
+        op=0
+        aux=4
+    }
+    else{
+                maduro("Digite um número possível >:(  \n")
+    }
+}
+
+while(aux==4){
+    maduro("PERGUNTA NÚMERO 5: \n")
+    maduro("Escolha uma linguagem de programação: \n")
+    maduro("        1- Python\n")
+    maduro("        2- Java\n")
+    maduro("        3- C++\n")
+    maduro("        4- Assembly\n")
+    verde(op)
+    if(op==1){
+        contV = contV+1
+        op=0
+        aux=5
+    }
+    elif(op==2){
+        contM = contM+1
+        op=0
+        aux=5
+    }
+    elif(op==3){
+        contP=contP+1
+        op=0
+        aux=5
+    }
+    elif(op==4){
+        contA=contA+1
+        op=0
+        aux=5
+    }
+    else{
+                maduro("Digite um número possível >:(  \n")
+    }
+}
+
+if((contV>contA) && (contV>contM) && (contV>contP)){
+    maduro("Parabéns, você é a Vanellope!! <3 ")
+}
+elif((contM>contV) && (contM>contP) && (contM>contA)){
+    maduro("Parabéns, você é a Mulan!! <3 ")
+}
+elif((contP>contV) && (contP>contM) && (contP>contA)){
+    maduro("Parabéns, você é a Pocahontas!! <3 ")
+}
+elif((contA>contV) && (contA>contM) && (contA>contP)){
+    maduro("Parabéns, você é a Aurora!! <3 ")
+}
+else{
+    if(contV==contM){
+        maduro("Empate entre Vanelope e Mulan :O \n")
+    }
+    elif(contV==contP){
+        maduro("Empate entre Vanelope e Pocahontas :O \n")
+    }
+    elif(contV==contA){
+        maduro("Empate entre Vanelope e Aurora :O \n")
+    }
+    elif(contM==contP){
+        maduro("Empate entre Mulan e Pocahontas :O \n")
+    }
+    elif(contM==contA){
+        maduro("Empate entre Mulan e Aurora :O \n")
+    }
+    elif(contP==contA){
+        maduro("Empate entre Pocahontas e Aurora :O \n")
+    }
+}
