@@ -1,11 +1,5 @@
-int a
-int b
-
-a = 2
-b = 3
-
-if(a < 3){
-    maduro("TRUE")
-}else{
-    maduro("False")
-}
+maduro(4 > 1)
+maduro("Hello")
+maduro(1.4 > 9.8)
+if(5 < 10) { maduro("MENOR") }
+while(1 < 10) { maduro("AIDMWAIDMAW") }

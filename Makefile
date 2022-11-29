@@ -7,7 +7,7 @@ lex.yy.c: viridis.l viridis.tab.h
 	flex viridis.l
 
 viridis: lex.yy.c viridis.tab.c viridis.tab.h
-	gcc -o viridis viridis.tab.c lex.yy.c
+	gcc -o viridis viridis.tab.c lex.yy.c -lm
 
 clean:
 	rm viridis viridis.tab.c lex.yy.c viridis.tab.h viridis.output

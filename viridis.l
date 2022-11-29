@@ -5,19 +5,18 @@
     #include <string.h>
     #include "viridis.tab.h"
 
+    char* buildString(const char* token, int token_length);
     void yyerror();
 %}
 
 /* Expressẽos Regulares */
 const_int               [0-9]+
-const_float             [-+]?[0-9]+("."[0-9]+)
-const_string            \"[^"]*\"
+const_float             [0-9]+("."[0-9]+)
+const_string            \"[^\"]*\"
 const_boolean           "true"|"false"
-const_char              \'[^\']*\'
 variavel                [a-zA-Z][a-zA-Z0-9]*
 comentario_linha        \/\/.*\n
 aritmeticos             ("+"|"-"|"*"|"/"|"%")
-relacionais             ("<"|"<="|">"|">="|"=="|"!=")
 logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
 
 /* Tokens */
@@ -43,16 +42,36 @@ logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
     return VOID;
 }
 
-"char" {
-    return CHAR;
-}
-
 "^" {
     return ELEVADO;
 }
 
 "=" {
     return ATRIBUICAO;
+}
+
+"==" {
+    return IGUAL;
+}
+
+"!=" {
+    return DIFERENTE;
+}
+
+"<" {
+    return MENOR;
+}
+
+"<=" {
+    return MENOR_IGUAL;
+}
+
+">" {
+    return MAIOR;
+}
+
+">=" {
+    return MAIOR_IGUAL;
 }
 
 "(" {
@@ -115,10 +134,6 @@ logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
     return *yytext;
 }
 
-{relacionais} {
-    return RELACIONAIS;
-}
-
 {logicos} {
     return LOGICOS;
 }
@@ -133,30 +148,38 @@ logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
     return CONST_FLOAT;
 }
 
-{const_char} {
-    yylval.char_val = yytext[0];
-    return CONST_CHAR;
-}
-
 {const_string} {
-    // yylval.string = malloc(yyleng * sizeof(char));
-    // strcpy(yylval.string, yytext);
-    sscanf(yytext, "%s", yylval.string);
+    yylval.string = buildString(yytext + 1, yyleng - 2);
     return CONST_STRING;
 }
 
 {const_boolean} {
-    if (strcmp(yytext, "true") == 0) {
-        yylval.num_int = 1;
-    } else {
-        yylval.num_int = 0;
+    if(__builtin_types_compatible_p(typeof(yytext), float)) {
+        if (strcmp(yytext, "true") == 0) {
+            yylval.num_float = 1.0;
+        } else {
+            yylval.num_float = 0.0;
+        }
+        return CONST_BOOLEAN_FLOAT;
+    }else if(__builtin_types_compatible_p(typeof(yytext), int)) {
+        if (strcmp(yytext, "true") == 0) {
+            yylval.num_int = 1;
+        } else {
+            yylval.num_int = 0;
+        }
+        return CONST_BOOLEAN_INT;
+    }else if(__builtin_types_compatible_p(typeof(yytext), char*)) {
+        if (strcmp(yytext, "true") == 0) {
+            yylval.string = "true";
+        } else {
+            yylval.string = "false";
+        }
+        return CONST_BOOLEAN_STRING;
     }
-    return CONST_BOOLEAN;
 }
 
 {variavel} {
-    sscanf(yytext, "%s", yylval.string);
-    return VARIAVEL;
+    return *yytext;
 }
 
 {comentario_linha} {
@@ -170,5 +193,17 @@ logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
 }
 
 %%
+
+char* buildString(const char* token, int token_length) {
+    char* string = malloc((token_length + 1) * sizeof(char));
+
+    if (!string) { 
+        printf("Error: Memory Alocation Failed!");
+    }
+
+    memcpy(string, token, token_length);
+    string[token_length] = 0;
+    return string;
+}
 
 int yywrap(){};
