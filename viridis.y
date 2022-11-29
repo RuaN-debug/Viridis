@@ -15,7 +15,7 @@
     int num_int;
 }
 
-%token BOOLEAN FLOAT INT STRING VOID ELEVADO ABRE_PARENTESES FECHA_PARENTESES ERRO COMENTARIO_LINHA FOR WHILE IF ELSE ELIF OUTPUT INPUT RETURN INICIOBLOCO FIMBLOCO ARITMETICOS RELACIONAIS LOGICOS FIMLINHA MAIN ATRIBUICAO PONTO IGUAL DIFERENTE MAIOR MENOR MAIOR_IGUAL MENOR_IGUAL
+%token BOOLEAN FLOAT INT STRING VOID ELEVADO ABRE_PARENTESES FECHA_PARENTESES ERRO COMENTARIO_LINHA FOR WHILE IF ELSE ELIF OUTPUT INPUT RETURN INICIOBLOCO FIMBLOCO ARITMETICOS RELACIONAIS LOGICOS FIMLINHA MAIN ATRIBUICAO PONTO IGUAL DIFERENTE MAIOR MENOR MAIOR_IGUAL MENOR_IGUAL AND OR NOT
 
 %token<num_int> CONST_INT CONST_BOOLEAN_INT
 %token<num_float> CONST_FLOAT CONST_BOOLEAN_FLOAT
@@ -28,8 +28,8 @@
 %token VARIAVEL
 
 %left ABRE_PARENTESES FECHA_PARENTESES INICIOBLOCO FIMBLOCO
-%left MAIOR MENOR ATRIBUICAO MAIOR_IGUAL MENOR_IGUAL IGUAL DIFERENTE
 %left AND OR NOT
+%left MAIOR MENOR ATRIBUICAO MAIOR_IGUAL MENOR_IGUAL IGUAL DIFERENTE
 %left '+' '-'
 %left '*' '/'
 %left NEGATIVO
@@ -55,7 +55,7 @@ statement:
 ;
 
 if_statement:
-    IF head_expression FIMLINHA head_statement elif_statement else_statement
+    IF head_expression head_statement elif_statement else_statement
 |   IF head_expression head_statement else_statement
 ;
 
@@ -77,7 +77,7 @@ head_expression:
 ;
 
 head_statement:
-    INICIOBLOCO statement FIMBLOCO
+    INICIOBLOCO FIMLINHA statement FIMLINHA FIMBLOCO
 ;
 
 expression:
@@ -162,6 +162,10 @@ boolean_expression_int:
 |   boolean_expression_int MENOR_IGUAL boolean_expression_int { $$ = $1 <= $3; }
 |   boolean_expression_int IGUAL boolean_expression_int { $$ = $1 == $3; }
 |   boolean_expression_int DIFERENTE boolean_expression_int { $$ = $1 != $3; }
+|   boolean_expression_int AND boolean_expression_int { $$ = $1 && $3; }
+|   boolean_expression_int OR boolean_expression_int { $$ = $1 || $3; }
+|   NOT boolean_expression_int { $$ = !$2; }
+|   ABRE_PARENTESES boolean_expression_int FECHA_PARENTESES { $$ = $2; }
 ;
 
 boolean_expression_float:
@@ -173,17 +177,22 @@ boolean_expression_float:
 |   boolean_expression_float MENOR_IGUAL boolean_expression_float { $$ = $1 <= $3; }
 |   boolean_expression_float IGUAL boolean_expression_float { $$ = $1 == $3; }
 |   boolean_expression_float DIFERENTE boolean_expression_float { $$ = $1 != $3; }
+|   boolean_expression_float AND boolean_expression_float { $$ = $1 && $3; }
+|   boolean_expression_float OR boolean_expression_float { $$ = $1 || $3; }
+|   NOT boolean_expression_float { $$ = !$2; }
+|   ABRE_PARENTESES boolean_expression_float FECHA_PARENTESES { $$ = $2; }
 ;
 
 boolean_expression_string:
     CONST_BOOLEAN_STRING { $$ = $1; }
 |   string_expression
-|   boolean_expression_string MAIOR boolean_expression_string { $$ = strcmp($1, $3) > 0; }
-|   boolean_expression_string MENOR boolean_expression_string { $$ = strcmp($1, $3) < 0; }
-|   boolean_expression_string MAIOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) >= 0; }
-|   boolean_expression_string MENOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) <= 0; }
-|   boolean_expression_string IGUAL boolean_expression_string { $$ = strcmp($1, $3) == 0; }
-|   boolean_expression_string DIFERENTE boolean_expression_string { $$ = strcmp($1, $3) != 0; }
+|   boolean_expression_string MAIOR boolean_expression_string { $$ = (strcmp($1, $3) > 0) ? "true" : "false"; }
+|   boolean_expression_string MENOR boolean_expression_string { $$ = strcmp($1, $3) < 0 ? "true" : "false"; }
+|   boolean_expression_string MAIOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) >= 0 ? "true" : "false"; }
+|   boolean_expression_string MENOR_IGUAL boolean_expression_string { $$ = strcmp($1, $3) <= 0 ? "true" : "false"; }
+|   boolean_expression_string IGUAL boolean_expression_string { $$ = strcmp($1, $3) == 0 ? "true" : "false"; }
+|   boolean_expression_string DIFERENTE boolean_expression_string { $$ = strcmp($1, $3) != 0 ? "true" : "false"; }
+|   ABRE_PARENTESES boolean_expression_string FECHA_PARENTESES { $$ = $2; }
 ;
 
 %%

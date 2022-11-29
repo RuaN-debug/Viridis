@@ -13,11 +13,10 @@
 const_int               [0-9]+
 const_float             [0-9]+("."[0-9]+)
 const_string            \"[^\"]*\"
-const_boolean           "true"|"false"
+const_boolean           "true"|"false"|""
 variavel                [a-zA-Z][a-zA-Z0-9]*
 comentario_linha        \/\/.*\n
 aritmeticos             ("+"|"-"|"*"|"/"|"%")
-logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
 
 /* Tokens */
 %%
@@ -126,16 +125,24 @@ logicos                 ("and"|"&&"|"e")|("or"|"||"|"ou")|("not"|"!"|"~"|"nao")
     return MAIN;
 }
 
-\n {
+"and"|"&&"|"e" {
+    return AND;
+}
+
+"or"|"||"|"ou" {
+    return OR;
+}
+
+"not"|"!"|"~"|"nao" {
+    return NOT;
+}
+
+"\n" {
     return FIMLINHA;
 }
 
 {aritmeticos} {
     return *yytext;
-}
-
-{logicos} {
-    return LOGICOS;
 }
 
 {const_int} {
